@@ -18,6 +18,12 @@ export const Add = () => {
 				<input ref={register} type="text" name="namn" id="namn"></input>
 				{/* Vid flera input fields, använd register som ref på dom också */}
 				<br></br>
+				<label>Årsmodell</label>
+				<input type="number"></input>
+				<br></br>
+				<label>Pris</label>
+				<input type="number"></input>
+				<br></br>
 				<button type="submit">Lägg till</button>
 			</form>
 			<br></br>

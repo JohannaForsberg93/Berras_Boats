@@ -37,10 +37,10 @@ function App() {
 const Home = () => {
 
   //Gör detta till en fetch-funktion som väntar på svar
-  function hej() {
-    fetch('/boats')
-      .then(data => console.log("Det här är vad som kommer tillbaka", data))
-  }
+  // function hej() {
+  //   fetch('/boats')
+  //     .then(data => console.log("Det här är vad som kommer tillbaka", data))
+  // }
 
   return (
     <div>
@@ -48,7 +48,7 @@ const Home = () => {
       <nav>
         <ul>
           {/* Gör en klick-händelse som skickar ett get request med fetch för att visa datan. Går det att göra en klick-händelse på en route?? */}
-          <li onClick={hej}><Link to="/boats" >Hämta alla båtar</Link></li>
+          <li><Link to="/boats" >Hämta alla båtar</Link></li>
           <li><Link to="/boat:id" >Sök eller ta bort</Link></li>
           <li><Link to="/boat/" >Lägg till</Link></li>
           <li><Link to="/boat:id" >Ta bort eller sök</Link></li>
