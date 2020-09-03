@@ -41,18 +41,18 @@ let get = (filter, callback) => {
 
 };
 
+//Lägg till båt
 let addBoat = (requestBody, callback) => {
-
 	const document = requestBody
+
 	MongoClient.connect(url, { useUnifiedTopology: true },
-		(error, client) => {
+		async (error, client) => {
 			if (error) {
 				//Anropar callback med error-meddelande
 				console.log("Error nånstans", error)
 				callback("Error vid anslutning till databasen");
 				return; //Avslutar callback-funktionen
 			}
-
 			const collection = client.db(databaseName).collection(collectionName);
 			const result = await collection.insertOne(document);
 			collection.find(filter).toArray((error, success) => {
@@ -60,6 +60,7 @@ let addBoat = (requestBody, callback) => {
 					callback("Error vid post request")
 				}
 				else {
+					console.log("Detta är result: ", result)
 					callback(success)
 				}
 				client.close()
@@ -67,8 +68,6 @@ let addBoat = (requestBody, callback) => {
 		});
 
 }
-
-
 
 module.exports = {
 	getAllBoats, getBoatByID, addBoat

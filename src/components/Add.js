@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 export const Add = () => {
@@ -28,7 +27,6 @@ export const Add = () => {
 			</form>
 			<br></br>
 			<br></br>
-			<Link to="/"><li>Back to Home</li></Link>
 		</div>
 	)
 }
