@@ -11,11 +11,12 @@ function App() {
   return (
     <div>
       <h1>Hej och välkommen till Berras båtar!</h1>
-
+      <br>
+      </br>
       <AllBoats></AllBoats>
-      <Add></Add>
+      {/* <Add></Add>
       <Remove></Remove>
-      <Search></Search>
+      <Search></Search> */}
     </div>
 
   );

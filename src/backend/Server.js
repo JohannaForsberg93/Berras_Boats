@@ -1,7 +1,3 @@
-// require('./database');
-
-// let { PostSchema } = require('./PostSchema');
-
 //Importerar funktion från database
 const { getAllBoats, getBoatByID } = require('./database');
 
@@ -33,6 +29,7 @@ app.get("/boats", (req, res) => {
 		// console.log("värdet av callback-funktionen", callback)
 		//Om allt går vägen så skickas båtobjekten till routen /boats
 		res.send(callback);
+		// res.sendFile('../components/All-boats.js')
 	});
 
 })
