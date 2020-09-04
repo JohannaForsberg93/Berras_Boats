@@ -42,32 +42,71 @@ let get = (filter, callback) => {
 };
 
 //Lägg till båt
-let addBoat = (requestBody, callback) => {
+function addBoat(requestBody, callback) {
+	console.log("Detta är requestbody som är skickad med axios från front end", requestBody)
 	const document = requestBody
-
-	MongoClient.connect(url, { useUnifiedTopology: true },
+	MongoClient.connect(
+		url, { useUnifiedTopology: true },
 		async (error, client) => {
 			if (error) {
-				//Anropar callback med error-meddelande
-				console.log("Error nånstans", error)
-				callback("Error vid anslutning till databasen");
-				return; //Avslutar callback-funktionen
+				callback("Kunde inte ansluta till mongodb");
+				return;
 			}
 			const collection = client.db(databaseName).collection(collectionName);
-			const result = await collection.insertOne(document);
-			collection.find(filter).toArray((error, success) => {
-				if (error) {
-					callback("Error vid post request")
-				}
-				else {
-					console.log("Detta är result: ", result)
-					callback(success)
-				}
-				client.close()
-			});
-		});
+			try {
+				const result = await collection.insertOne(document);
+				console.log("Detta är result och ops", result.ops)
+				callback({
+					result: result.result,
+					ops: result.ops
+				})
 
+
+			} catch (error) {
+				console.error("Error message: ", error.message);
+				callback("Kunde inte spara båten till databasen");
+
+			} finally {
+				client.close();
+			}
+		}
+	)
 }
+
+
+// let addBoat = (requestBody, callback) => {
+// 	const document = requestBody
+// 	MongoClient.connect(url, { useUnifiedTopology: true },
+// 		async (error, client) => {
+// 			if (error) {
+// 				//Anropar callback med error-meddelande
+// 				console.log("Error nånstans", error)
+// 				callback("Error vid anslutning till databasen");
+// 				return; //Avslutar callback-funktionen
+// 			}
+// 			const collection = client.db(databaseName).collection(collectionName);
+
+// 			try{
+// 				const result = await collection.insertOne(document);
+// 				callback({
+// 					result: result.result,
+// 					ops: result.ops
+// 				})
+
+// 			}
+// 			catch(error) {
+// 				console.error("Kunde inte lägga till en båt till databasen", error.message);
+// 				callback("Error, kunde inte lägga till en båt till databasen")
+
+// 			}
+// 			finally{
+// 				client.close()
+
+// 			};
+
+// 		};
+// 	)
+// };
 
 module.exports = {
 	getAllBoats, getBoatByID, addBoat

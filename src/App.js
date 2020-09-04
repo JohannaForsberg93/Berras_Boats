@@ -14,9 +14,9 @@ function App() {
       <br>
       </br>
       <AllBoats></AllBoats>
-      {/* <Add></Add>
-      <Remove></Remove>
-      <Search></Search> */}
+      <Add></Add>
+      {/* <Remove></Remove> */}
+      {/* <Search></Search> */}
     </div>
 
   );

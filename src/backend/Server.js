@@ -1,5 +1,5 @@
 //Importerar funktion från database
-const { getAllBoats, getBoatByID } = require('./database');
+const { getAllBoats, getBoatByID, addBoat } = require('./database');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,6 +8,7 @@ const port = 1993;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + "../src"))
 //Visar vilken request metod och route som man skickar
 app.use((req, res, next) => {
 	console.log(req.method, req.url);
@@ -29,13 +30,13 @@ app.get("/boats", (req, res) => {
 		// console.log("värdet av callback-funktionen", callback)
 		//Om allt går vägen så skickas båtobjekten till routen /boats
 		res.send(callback);
-		// res.sendFile('../components/All-boats.js')
+		// res.sendFile('./components/All-boats.js')
 	});
 
 })
 
 //Båt med visst id
-app.get("/boat", (req, res) => {
+app.get("/boat?", (req, res) => {
 	console.log("På väg att skicka ett GET request")
 	getBoatByID(req.query.id, callback => {
 		// console.log("värdet av callback-funktionen i /boat:id", callback)
@@ -45,10 +46,12 @@ app.get("/boat", (req, res) => {
 })
 
 //Lägga till egen båt
-app.post("/boat?", (req, res) => {
+app.post("/boat", (req, res) => {
 	console.log("På väg att skicka ett POST request")
-	addBoat(req.body, callback);
-	res.send(callback)
+	addBoat(req.body, callback => {
+		res.send(callback)
+	});
+
 })
 
 app.listen(port, () => {

@@ -3,24 +3,24 @@ import axios from 'axios';
 
 export const AllBoats = () => {
 
-	const [apiData, setApiData] = useState([]);
-	async function getBoats() {
+	const [boats, setBoats] = useState([]);
 
+	async function getBoats() {
 		const response = await axios.get('/boats')
 			.then((response) => {
-				setApiData(response.data);
+				setBoats(response.data);
 
 			})
 			.catch((error) => { console.log("Error", error) });
-		console.log("Värdet av apiData", apiData)
+		console.log("Värdet av boats", boats)
 	}
-	console.log("Värdet av apiData", apiData)
+	console.log("Värdet av boats", boats)
 	return (
 		<div>
 			<h1>Alla båtar:</h1>
 			<br></br>
 			<ul>
-				{apiData.map((boat) => (
+				{boats.map((boat) => (
 					<li key={boat._id}>
 						<h2>{boat.name}</h2>
 					</li>
