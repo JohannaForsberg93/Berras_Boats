@@ -13,6 +13,7 @@ let getAllBoats = (callback) => {
 
 // Hämtar en båt med visst id
 let getBoatByID = (id, callback) => {
+	console.log("Värdet av id", id)
 	get({ _id: new ObjectID(id) }, callback)
 };
 
@@ -49,18 +50,17 @@ function addBoat(requestBody, callback) {
 		url, { useUnifiedTopology: true },
 		async (error, client) => {
 			if (error) {
-				callback("Kunde inte ansluta till mongodb");
+				callback("Kunde inte ansluta till databasen");
 				return;
 			}
 			const collection = client.db(databaseName).collection(collectionName);
 			try {
 				const result = await collection.insertOne(document);
-				console.log("Detta är result och ops", result.ops)
+				console.log("Lyckades lägga till båtobjektet!", result.ops)
 				callback({
 					result: result.result,
 					ops: result.ops
 				})
-
 
 			} catch (error) {
 				console.error("Error message: ", error.message);

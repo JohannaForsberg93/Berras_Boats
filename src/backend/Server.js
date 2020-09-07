@@ -8,7 +8,7 @@ const port = 1993;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "../src"))
+app.use(express.static(__dirname + "/../components"))
 //Visar vilken request metod och route som man skickar
 app.use((req, res, next) => {
 	console.log(req.method, req.url);
@@ -38,6 +38,7 @@ app.get("/boats", (req, res) => {
 //Båt med visst id
 app.get("/boat?", (req, res) => {
 	console.log("På väg att skicka ett GET request")
+	console.log("Värdet av querystringen", req.query.id)
 	getBoatByID(req.query.id, callback => {
 		// console.log("värdet av callback-funktionen i /boat:id", callback)
 		res.send(callback);

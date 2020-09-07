@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 export const AllBoats = () => {
@@ -19,13 +19,20 @@ export const AllBoats = () => {
 		<div>
 			<h1>Alla båtar:</h1>
 			<br></br>
-			<ul>
+			<div>
+
 				{boats.map((boat) => (
-					<li key={boat._id}>
+					<div key={boat._id}>
 						<h2>{boat.name}</h2>
-					</li>
+						<h4>{boat.price}</h4>
+					</div>
+
 				))}
-			</ul>
+
+
+			</div>
+
+
 			<div>
 				<button onClick={getBoats}>Hämta båtar</button>
 			</div>
