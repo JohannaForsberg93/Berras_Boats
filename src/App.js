@@ -13,9 +13,9 @@ function App() {
       <h1>Hej och välkommen till Berras båtar!</h1>
       <br>
       </br>
-      {/* <AllBoats></AllBoats>
-      <Add></Add>
-      <BoatID></BoatID> */}
+      {/* <AllBoats></AllBoats> */}
+      {/* <Add></Add> */}
+      <BoatID></BoatID>
       <Remove></Remove>
 
     </div>

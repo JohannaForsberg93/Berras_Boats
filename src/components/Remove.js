@@ -20,7 +20,7 @@ export const Remove = () => {
 	}
 	return (
 		<div>
-			<h1>Alla båtar:</h1>
+			<h1>Ta bort en båt:</h1>
 			<br></br>
 			<div>
 
@@ -28,7 +28,7 @@ export const Remove = () => {
 					<div key={boat._id}>
 						<h2>{boat.name}</h2>
 						<h4>Pris: {boat.price}</h4>
-						<button onClick={remove(boat.name)}>Ta bort</button>
+						<button onClick={() => remove(boat._id)}>Ta bort</button>
 						<br></br>
 					</div>
 
