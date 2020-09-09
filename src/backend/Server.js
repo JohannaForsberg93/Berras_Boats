@@ -1,5 +1,5 @@
 //Importerar funktion från database
-const { getAllBoats, getBoatByID, addBoat } = require('./database');
+const { getAllBoats, getBoatByID, addBoat, deleteBoat } = require('./database');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,7 +9,7 @@ const port = 1993;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/../components"))
-//Visar vilken request metod och route som man skickar
+//Visar vilken request metod och route som skickas
 app.use((req, res, next) => {
 	console.log(req.method, req.url);
 	next();
@@ -20,27 +20,22 @@ app.get("/", (request, response) => {
 	response.send("Woho it works!")
 });
 
-//En callbackfunktion är en funktion som skickas som parameter till en annan funktion.
-//getAllBoats() är asynkron
 
 //Alla båtar
 app.get("/boats", (req, res) => {
 	console.log("På väg att skicka ett GET request")
 	getAllBoats(callback => {
-		// console.log("värdet av callback-funktionen", callback)
-		//Om allt går vägen så skickas båtobjekten till routen /boats
 		res.send(callback);
-		// res.sendFile('./components/All-boats.js')
+
 	});
 
 })
 
 //Båt med visst id
-app.get("/boat?", (req, res) => {
+app.get("/boat/:id", (req, res) => {
 	console.log("På väg att skicka ett GET request")
 	console.log("Värdet av querystringen", req.query.id)
 	getBoatByID(req.query.id, callback => {
-		// console.log("värdet av callback-funktionen i /boat:id", callback)
 		res.send(callback);
 	});
 
@@ -53,6 +48,16 @@ app.post("/boat", (req, res) => {
 		res.send(callback)
 	});
 
+})
+
+//Ta bort en båt med id
+app.delete("/boat/id", (req, res) => {
+	console.log("På väg att skicka ett DELETE-request");
+	console.log("Värdet av req.query.id", req.query.id)
+
+	deleteBoat(req.query.id, callback => {
+		res.send(callback)
+	})
 })
 
 app.listen(port, () => {

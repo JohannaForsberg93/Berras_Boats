@@ -9,21 +9,19 @@ export const Remove = () => {
 		const response = await axios.get('/boats')
 			.then((response) => {
 				setBoats(response.data);
-
 			})
 			.catch((error) => { console.log("Error", error) });
 		console.log("Värdet av boats", boats)
 	}
 
 	function remove(id) {
+		fetch("/boat/:id" + id, { method: "DELETE" })
 		console.log("Värdet av id i remove funktionen", id)
 	}
 	return (
 		<div>
 			<h1>Ta bort en båt:</h1>
-			<br></br>
 			<div>
-
 				{boats.map((boat) => (
 					<div key={boat._id}>
 						<h2>{boat.name}</h2>

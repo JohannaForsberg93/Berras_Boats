@@ -17,6 +17,11 @@ let getBoatByID = (id, callback) => {
 	get({ _id: new ObjectID(id) }, callback)
 };
 
+let deleteBoat = (id, callback) => {
+	removeBoat({ _id: new ObjectID(id) }, callback)
+}
+
+
 //Funktion som gör GET requests
 let get = (filter, callback) => {
 
@@ -71,6 +76,35 @@ function addBoat(requestBody, callback) {
 			}
 		}
 	)
+};
+
+
+
+function removeBoat(id, callback) {
+
+	MongoClient.connect(url, { useUnifiedTopology: true },
+		(error, client) => {
+			if (error) {
+				//Anropar callback med error-meddelande
+				console.log("Error vid anslutning", error)
+				callback("Error vid anslutning till databasen");
+				return; //Avslutar callback-funktionen
+			}
+			const collection = client.db(databaseName).collection(collectionName);
+			collection.deleteOne(id);
+			((error, success) => {
+				if (error) {
+					callback("Error när den skulle plocka ut en collection i db.boats")
+				}
+				else {
+					console.log("Lyckades ta bort båten!")
+					callback("Lyckades ta bort båten!")
+				}
+				client.close()
+			});
+		});
+
+
 }
 
 
@@ -109,5 +143,5 @@ function addBoat(requestBody, callback) {
 // };
 
 module.exports = {
-	getAllBoats, getBoatByID, addBoat
+	getAllBoats, getBoatByID, addBoat, deleteBoat
 }

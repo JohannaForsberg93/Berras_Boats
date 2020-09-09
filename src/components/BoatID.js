@@ -44,7 +44,7 @@ export const BoatID = () => {
 
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<h1>Sök på en båt med id:</h1>
-					<input onClick={setErrorMsg === false} type="text" name="id" ref={register}></input>
+					<input type="text" name="id" ref={register}></input>
 					<input type="submit"></input>
 				</form>
 				<br></br>
